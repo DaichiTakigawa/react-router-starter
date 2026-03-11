@@ -1,0 +1,7 @@
+dist/
+build/
+.react-router/
+node_modules/
+pnpm-lock.yaml
+pnpm-workspace.yaml
+**/*.{js,mjs,cjs,ts,jsx,tsx,json,css}
