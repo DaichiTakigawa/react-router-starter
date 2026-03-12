@@ -21,14 +21,14 @@ export function Welcome() {
         </header>
         <div className="w-full max-w-75 space-y-6 px-4">
           <nav className="space-y-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
-            <p className="text-center text-gray-700 leading-6 dark:text-gray-200">
+            <p className="text-center leading-6 text-gray-700 dark:text-gray-200">
               What&apos;s next?
             </p>
             <ul>
               {resources.map(({ href, text, icon }) => (
                 <li key={href}>
                   <a
-                    className="group flex items-center gap-3 self-stretch p-3 text-blue-700 leading-normal hover:underline dark:text-blue-500"
+                    className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
                     href={href}
                     target="_blank"
                     rel="noreferrer"
