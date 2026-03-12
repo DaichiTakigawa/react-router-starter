@@ -5,11 +5,12 @@
     "**/.client/**/*",
     ".react-router/types/**/*"
   ],
+  "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["node", "vite/client"],
-    "target": "ES2022",
-    "module": "ES2022",
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "types": ["@react-router/node", "vite/client"],
+    "target": "es2022",
+    "module": "preserve",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "strict": true,

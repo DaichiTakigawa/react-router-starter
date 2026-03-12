@@ -1,4 +1,4 @@
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettierConfig from 'eslint-config-prettier';
@@ -10,12 +10,10 @@ import pluginVitest from '@vitest/eslint-plugin';
 import pluginTestingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
 
-export default defineConfig(
-  {
-    ignores: ['dist/**', 'build/**', '.react-router/**', 'node_modules/**'],
-  },
+export default defineConfig([
+  globalIgnores(['dist/**', 'build/**', '.react-router/**', 'node_modules/**']),
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+  tseslint.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 'latest',
@@ -81,5 +79,5 @@ export default defineConfig(
       pluginTestingLibrary.configs['flat/react'],
     ],
   },
-  prettierConfig
-);
+  prettierConfig,
+]);
