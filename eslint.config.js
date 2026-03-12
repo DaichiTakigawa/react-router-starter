@@ -8,6 +8,7 @@ import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginTanstackQuery from '@tanstack/eslint-plugin-query';
 import pluginVitest from '@vitest/eslint-plugin';
 import pluginTestingLibrary from 'eslint-plugin-testing-library';
+import pluginStorybook from 'eslint-plugin-storybook';
 import globals from 'globals';
 
 export default defineConfig([
@@ -79,5 +80,6 @@ export default defineConfig([
       pluginTestingLibrary.configs['flat/react'],
     ],
   },
+  pluginStorybook.configs['flat/recommended'],
   prettierConfig,
 ]);

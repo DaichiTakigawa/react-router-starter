@@ -3,7 +3,9 @@
     "**/*",
     "**/.server/**/*",
     "**/.client/**/*",
-    ".react-router/types/**/*"
+    ".react-router/types/**/*",
+    ".storybook/*",
+    "stories/**/*"
   ],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
