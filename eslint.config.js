@@ -5,6 +5,7 @@ import prettierConfig from 'eslint-config-prettier';
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginTanstackQuery from '@tanstack/eslint-plugin-query';
 import pluginVitest from '@vitest/eslint-plugin';
 import pluginTestingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
@@ -46,6 +47,7 @@ export default defineConfig(
       pluginReact.configs.flat['jsx-runtime'],
       pluginJsxA11y.flatConfigs.recommended,
       pluginReactHooks.configs.flat.recommended,
+      pluginTanstackQuery.configs['flat/recommended'],
     ],
     rules: {
       '@typescript-eslint/no-unused-vars': [
