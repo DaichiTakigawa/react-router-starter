@@ -1,18 +1,28 @@
-import { defineConfig, globalIgnores } from 'eslint/config';
 import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import prettierConfig from 'eslint-config-prettier';
-import pluginReact from 'eslint-plugin-react';
-import pluginReactHooks from 'eslint-plugin-react-hooks';
-import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginTanstackQuery from '@tanstack/eslint-plugin-query';
 import pluginVitest from '@vitest/eslint-plugin';
-import pluginTestingLibrary from 'eslint-plugin-testing-library';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import prettierConfig from 'eslint-config-prettier';
+import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+// import pluginRemotion from '@remotion/eslint-plugin';
+import pluginImportSort from 'eslint-plugin-simple-import-sort';
 import pluginStorybook from 'eslint-plugin-storybook';
+import pluginTestingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-  globalIgnores(['dist/**', 'build/**', '.react-router/**', 'node_modules/**']),
+  globalIgnores([
+    'dist/**',
+    'build/**',
+    '.react-router/**',
+    'node_modules/**',
+    'storybook-static/**',
+    '.agents/**',
+    '.claude/**',
+  ]),
   eslint.configs.recommended,
   tseslint.configs.recommended,
   {
@@ -41,12 +51,18 @@ export default defineConfig([
   },
   {
     files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+    },
     extends: [
       pluginReact.configs.flat.recommended,
       pluginReact.configs.flat['jsx-runtime'],
       pluginJsxA11y.flatConfigs.recommended,
       pluginReactHooks.configs.flat.recommended,
       pluginTanstackQuery.configs['flat/recommended'],
+      // pluginRemotion.flatPlugin,
     ],
     rules: {
       '@typescript-eslint/no-unused-vars': [
@@ -62,6 +78,8 @@ export default defineConfig([
         'error',
         { fixStyle: 'separate-type-imports' },
       ],
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/require-await': 'error',
     },
     settings: {
       react: {
@@ -71,6 +89,33 @@ export default defineConfig([
         { name: 'Link', linkAttribute: 'to' },
         { name: 'NavLink', linkAttribute: 'to' },
       ],
+    },
+  },
+  {
+    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    plugins: {
+      'simple-import-sort': pluginImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': [
+        'warn',
+        {
+          groups: [
+            [
+              '^react$',
+              '^react\\u0000$',
+              '^node:',
+              '^@?\\w',
+              '^',
+              '^\\.',
+              '^.+\\+types',
+              '^\\u0000',
+              '^.+\\.s?css$',
+            ],
+          ],
+        },
+      ],
+      'simple-import-sort/exports': 'warn',
     },
   },
   {

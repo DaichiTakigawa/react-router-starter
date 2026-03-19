@@ -4,13 +4,12 @@
     "**/.server/**/*",
     "**/.client/**/*",
     ".react-router/types/**/*",
-    ".storybook/*",
-    "stories/**/*"
+    ".storybook/*"
   ],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "es2022"],
-    "types": ["@react-router/node", "vite/client"],
+    "types": ["@react-router/node", "vite/client", "vitest/globals"],
     "target": "es2022",
     "module": "preserve",
     "moduleResolution": "bundler",

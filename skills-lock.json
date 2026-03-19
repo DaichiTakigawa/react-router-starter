@@ -4,7 +4,12 @@
     "agent-browser": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",
-      "computedHash": "1001ba48c486ed1013c2951315de3af25c315292f72b0da0af828dfda5803491"
+      "computedHash": "46eddb8bcb7de8e7c75ff53ee54bf764a576a923d19765b4ef6a71bb04755db6"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "computedHash": "9851afb52e1b892c43b2af973bda1776ce01fedfdfe704e0cfd70069a3a9c300"
     },
     "shadcn": {
       "source": "shadcn/ui",

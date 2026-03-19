@@ -6,9 +6,18 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-
+import { Toaster } from './components/ui/sonner';
+import { ThemeProvider } from './components/ui/theme-provider';
 import type { Route } from './+types/root';
 import './assets/app.css';
+
+export const meta: Route.MetaFunction = () => [
+  { title: 'ibisCut' },
+  {
+    name: 'description',
+    content: 'powerful video editor.',
+  },
+];
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -25,7 +34,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ja" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +42,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

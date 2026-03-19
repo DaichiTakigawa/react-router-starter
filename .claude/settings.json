@@ -1,0 +1,62 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "excludedCommands": ["docker"],
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowLocalBinding": true
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Bash(pnpm dev)",
+      "Bash(pnpm build)",
+      "Bash(pnpm start)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:fix)",
+      "Bash(pnpm fmt)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm test)",
+      "Bash(pnpm storybook)",
+      "Bash(pnpm build-storybook)",
+      "Bash(git add *)",
+      "Bash(git pull *)",
+      "Bash(mkdir *)"
+    ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(mv *)",
+      "Bash(cp *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(vercel *)",
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git commit *)",
+      "Bash(git stash *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.envrc)",
+      "Read(./.env.local)",
+      "Read(./.env.*.local)",
+      "Read(./.env.production)",
+      "Read(./.env.development)",
+      "Read(./.env.test)",
+      "Read(./.env.staging)",
+      "Read(./secrets/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.config/gcloud/**)",
+      "Bash(ssh *)",
+      "Bash(scp *)",
+      "Bash(sudo *)"
+    ]
+  }
+}

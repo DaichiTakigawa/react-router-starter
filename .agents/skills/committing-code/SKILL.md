@@ -1,0 +1,135 @@
+---
+name: committing-code
+description: Creates commit messages according to Conventional Commits, performs intelligent staging, and executes git commit. Used when a user requests that changes be committed and a commit message be created.
+allowed-tools: Bash
+---
+
+# コンベンショナルコミットによるGitコミット
+
+## 概要
+
+Conventional Commits仕様に基づいた、標準化されたセマンティックなgitコミットを作成する。実際のdiffを分析して、適切なタイプ、スコープ、メッセージを決定する。
+
+## コンベンショナルコミットのフォーマット
+
+```
+<タイプ>[任意のスコープ]: <説明>
+
+[任意の本文]
+```
+
+## コミットタイプ
+
+| タイプ     | 用途                                             |
+| ---------- | ------------------------------------------------ |
+| `feat`     | 新機能                                           |
+| `fix`      | バグ修正                                         |
+| `docs`     | ドキュメントのみの変更                           |
+| `style`    | フォーマット/スタイル（ロジック変更なし）        |
+| `refactor` | コードリファクタリング（機能追加・バグ修正なし） |
+| `perf`     | パフォーマンス改善                               |
+| `test`     | テストの追加・更新                               |
+| `build`    | ビルドシステム/依存関係の変更                    |
+| `ci`       | CI/設定の変更                                    |
+| `chore`    | メンテナンス/その他                              |
+| `revert`   | コミットの取り消し                               |
+
+## 破壊的変更
+
+```
+# タイプ/スコープの後にエクスクラメーションマーク
+feat!: 非推奨のエンドポイントを削除
+
+# BREAKING CHANGEフッター
+feat: 設定ファイルが他の設定を継承可能に
+
+BREAKING CHANGE: `extends`キーの挙動が変更
+```
+
+## ワークフロー
+
+### 1. Diffの分析
+
+```bash
+# ステージ済みのファイルがある場合、ステージ済みのdiffを使用
+git diff --staged
+
+# ステージ済みのファイルがない場合、ワーキングツリーのdiffを使用
+git diff
+
+# ステータスも確認
+git status --porcelain
+```
+
+### 2. ファイルのステージング（必要に応じて）
+
+ステージ済みのファイルがない場合、または変更を別のグループに分けるべきと判断した場合：
+
+```bash
+# 特定のファイルをステージング
+git add path/to/file1 path/to/file2
+
+# パターンでステージング
+git add *.test.*
+git add src/components/*
+
+# ステージングから外す
+git restore --staged path/to/file1 path/to/file2
+
+# パターンでステージングから外す
+git restore --staged *.test.*
+git restore --staged src/components/*
+```
+
+**シークレットは絶対にコミットしないこと**（.env、credentials.json、秘密鍵など）。
+
+### 3. 過去のコミット履歴を参照
+
+ユーザーのコミットスタイルに一貫性を持たせるため、直近のコミットメッセージを確認する：
+
+```bash
+git log --author=$(git config user.name) -n 20 --no-merges --oneline
+```
+
+### 4. コミットメッセージの生成
+
+diffを分析して以下を決定する：
+
+- **タイプ**: どのような種類の変更か？
+- **スコープ**: どの領域/モジュールが影響を受けるか？
+- **説明**: 変更内容の一行要約（現在形・命令法・72文字以内）
+
+### 5. コミットの実行
+
+```bash
+# 一行の場合
+git commit -m "<タイプ>[スコープ]: <説明>"
+
+# 本文/フッター付きの複数行の場合
+git commit -m "$(cat <<'EOF'
+<タイプ>[スコープ]: <説明>
+
+<任意の本文>
+EOF
+)"
+```
+
+## ベストプラクティス
+
+- 1つの論理的な変更につき1コミット
+- 現在形を使用：「added」ではなく「add」
+- 命令法を使用：「fixes bug」ではなく「fix bug」
+- 説明は72文字以内に収める
+- コミットメッセージは日本語
+- 英単語の後に空白を入れる必要なし（例: `feat: ESLint設定を追加`、`fix: React Routerのローダー修正`）
+- 本文は句読点ありの完結した文章で、各行末はなるべく体言止め、かつ「。」で終える
+- 本文は箇条書き形式で記載するが、箇条書き記号（`-`や`*`）は不要
+- `Co-Authored-By` トレーラーを**含めない**
+
+## Git安全プロトコル
+
+- git configを**絶対に変更しない**
+- 明示的な要求なしに破壊的コマンド（--force、hard reset）を**絶対に実行しない**
+- ユーザーが要求しない限りフックをスキップ（--no-verify）**しない**
+- main/masterへのforce pushを**絶対にしない**
+- フックによりコミットが失敗した場合、修正して**新しいコミットを作成する**（amendしない）
