@@ -5,7 +5,7 @@
 - **React 19** + **React Router v7**（SSR有効）+ **Vite 7**
 - **Tailwind CSS v4** — `oklch()` ベースのセマンティックカラートークン（`app/assets/app.css` で定義）
 - **shadcn/ui**（radix-mira スタイル、HugeIcons）— コンポーネント追加: `pnpm dlx shadcn@latest add <component>`
-- **ESLint v9**（flat config）+ **Prettier**（全ファイル対象、`prettier-plugin-tailwindcss` でクラスソート）
+- **ESLint v9**（flat config）+ **oxfmt**（全ファイル対象、Tailwind CSS クラスソート対応）
 - **Remotion** — ブラウザ内動画プレビュー
 - **Zustand** — 状態管理（immer, devtools ミドルウェア）
 - **TanStack Query** — データフェッチ/キャッシュ
@@ -22,7 +22,7 @@ pnpm build            # プロダクションビルド
 pnpm start            # プロダクションビルドの配信
 pnpm lint             # ESLint（キャッシュ有効）
 pnpm lint:fix         # ESLint（自動修正）
-pnpm fmt              # Prettier（全ファイル）
+pnpm fmt              # oxfmt（全ファイル）
 pnpm typecheck        # React Router 型生成 → tsc 実行
 pnpm test             # Vitest 実行
 pnpm storybook        # Storybook 開発サーバー（port 6006）
@@ -46,7 +46,7 @@ pnpm build-storybook  # Storybook 静的ビルド
 
 ## コード規約
 
-### フォーマット（ESLint + Prettier + pre-commit フックで強制）
+### フォーマット（ESLint + oxfmt + pre-commit フックで強制）
 
 - シングルクォート、2スペースインデント、LF 改行、トレーリングカンマ（ES5）、セミコロン必須
 - 型のみのインポートには `import type` を使用（`@typescript-eslint/consistent-type-imports`）
@@ -67,5 +67,5 @@ pnpm build-storybook  # Storybook 静的ビルド
 
 ### Git
 
-- pre-commit フックが `lint-staged` を実行 → `*.{js,mjs,cjs,ts,jsx,tsx}` に Prettier + ESLint、`*.{css,json,md,yaml}` に Prettier
+- pre-commit フックが `lint-staged` を実行 → `*.{js,mjs,cjs,ts,jsx,tsx}` に oxfmt + ESLint、`*.{css,json,md,yaml}` に oxfmt
 - lint が通らないとコミットがブロックされる
