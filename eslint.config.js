@@ -17,6 +17,7 @@ export default defineConfig([
   globalIgnores([
     'dist/**',
     'build/**',
+    'coverage/**',
     '.react-router/**',
     'node_modules/**',
     'storybook-static/**',
